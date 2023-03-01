@@ -2,12 +2,17 @@
 // import { Inter } from "next/font/google";
 // import styles from "./page.module.css";
 // const inter = Inter({ subsets: ["latin"] });
+"use client";
 
-// import * as te from "tw-elements";
-
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return <div className=" grid grid-c">
-okay
-  </div>;
+  const route = useRouter();
+  useEffect(() => {
+    if (!localStorage.getItem("accessToken")) {
+      route.push("/authenticate");
+    }
+  }, []);
+  return <div className=" grid grid-c">okay</div>;
 }
