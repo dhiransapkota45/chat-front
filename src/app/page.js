@@ -7,5 +7,7 @@
 
 
 export default function Home() {
-  return <div className=" text-red-400">hello</div>;
+  return <div className=" grid grid-c">
+okay
+  </div>;
 }
