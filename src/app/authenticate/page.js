@@ -5,7 +5,7 @@ import { signup } from "services/auth/signup";
 import { useForm } from "react-hook-form";
 import { cloudinaryupload } from "utils/cloudinary";
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [loginorsignup, setLoginorsignup] = useState("login");
@@ -19,9 +19,9 @@ const page = () => {
     formState: { errors },
   } = useForm();
 
-  const submitHandler = async (data) => {
+  const submitHandler = (data) => {
     if (loginorsignup === "login") {
-      login();
+      login(data, router);
     } else if (loginorsignup === "signup") {
       const func = async () => {
         const imageurl = await cloudinaryupload(profile);

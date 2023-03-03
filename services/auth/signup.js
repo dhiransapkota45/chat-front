@@ -3,8 +3,6 @@ import axios from "axios";
 const backendurl = "http://localhost:8000";
 
 export const signup = async (data, imageurl, router) => {
-  console.log("backend run");
-  console.log(data, imageurl);
   try {
     const response = await axios.post(`${backendurl}/api/signup`, {
       ...data,

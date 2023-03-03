@@ -4,15 +4,15 @@
 // const inter = Inter({ subsets: ["latin"] });
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Main from "../../components/home/Main";
+import { allchatusers } from "services/users/allchatusers";
 
 export default function Home() {
-  const route = useRouter();
-  useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      route.push("/authenticate");
-    }
-  }, []);
-  return <div className=" grid grid-c">okay</div>;
+  return (
+    <div>
+      <Main />
+    </div>
+  );
 }
