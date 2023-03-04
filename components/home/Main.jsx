@@ -5,7 +5,7 @@ import Sidebar from './interior/Sidebar'
 import { io } from 'socket.io-client'
 
 const baseurl = "http://localhost:8000"
-let socket, selectedChatCompare;
+let socket;
 const Main = () => {
   const [socketState, setSocketState] = useState(null)
 

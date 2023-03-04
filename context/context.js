@@ -6,8 +6,9 @@ export const contexter = createContext();
 
 const ContextFunc = (props) => {
   const [chats, setChats] = useState([]);
-  const [mainuser, setMainuser] = useState({});
+  const [mainuser, setMainuser] = useState(null);
   const [activechat, setActivechat] = useState(null);
+  const [selectedChat, setSelectedChat] = useState(null);
   const route = useRouter();
 
   useEffect(() => {
@@ -32,7 +33,15 @@ const ContextFunc = (props) => {
 
   return (
     <contexter.Provider
-      value={{ chats, setChats, mainuser, activechat, setActivechat }}
+      value={{
+        chats,
+        setChats,
+        mainuser,
+        activechat,
+        setActivechat,
+        selectedChat,
+        setSelectedChat,
+      }}
     >
       {props.children}
     </contexter.Provider>

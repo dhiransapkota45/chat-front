@@ -1,10 +1,12 @@
+import Image from 'components/common/Image'
 import { contexter } from 'context/context'
 import React, { useContext, useEffect, useState } from 'react'
 import api from 'services/instance'
 import { createMessage } from 'services/messages/createMessage'
 
 const MessageBox = ({ socket }) => {
-    const { activechat, mainuser } = useContext(contexter)
+    const { activechat, mainuser, chats, selectedChat } = useContext(contexter)
+    // console.log(selectedChat)
     const [allchatdata, setAllchatdata] = useState([])
 
     const [faskestate, setFakestate] = useState(false)
@@ -58,7 +60,7 @@ const MessageBox = ({ socket }) => {
                 <button type='submit'>send</button>
             </form>
 
-            <div>
+            <div className=''>
                 {
                     allchatdata.map((data, index) => {
                         return (
@@ -69,6 +71,26 @@ const MessageBox = ({ socket }) => {
                         )
                     })
                 }
+            </div>
+
+
+            <div className=' '>
+                {
+                    mainuser ?
+                        <>
+                            {/* <Image image={mainuser.image} /> */}
+                            <div>
+                                <img src={selectedChat.image} className="w-8 h-8 rounded-full" alt="" />
+                            </div>
+                            <div>{selectedChat.username}</div>
+                        </>
+                        :
+                        <div>
+                            loading...
+                        </div>
+                }
+                {/* <div className='hidden'>hello</div> */}
+
             </div>
         </div>
     )
