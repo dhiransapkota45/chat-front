@@ -12,8 +12,6 @@ const Sidebar = ({ socket }) => {
     const chatClickHandler = (chatid, user) => {
         console.log(chatid);
         setActivechat(chatid)
-
-        // console.log(user);
         setSelectedChat(user)
         socket.emit("join chat", chatid)
     }
@@ -39,8 +37,6 @@ const Sidebar = ({ socket }) => {
 
         };
         func();
-
-        // const res = await api.get("/api/allchat");
 
     }
 

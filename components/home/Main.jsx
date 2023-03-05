@@ -7,7 +7,7 @@ import { io } from 'socket.io-client'
 
 import { useRouter } from 'next/navigation'
 
-const baseurl = "http://localhost:8000"
+const baseurl = "https://chat-back-production-53b7.up.railway.app/"
 let socket;
 const Main = () => {
   const [socketState, setSocketState] = useState(null)

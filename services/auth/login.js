@@ -6,7 +6,7 @@ export const login = async (data, router) => {
     const response = await axios.post(`${backendurl}/api/login`, data);
     console.log(response);
     localStorage.setItem("accessToken", response.data.accessToken);
-    router.push("/");
+    window.location.reload();
   } catch (error) {
     console.log("hello there", error);
   }

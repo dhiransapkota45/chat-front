@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseurl = "http://localhost:8000";
+const baseurl = "https://chat-back-production-53b7.up.railway.app/";
 const api = axios.create({
   baseURL: baseurl,
   headers: {

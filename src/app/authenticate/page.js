@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { login } from "../../../services/auth/login";
 import { signup } from "services/auth/signup";
 import { useForm } from "react-hook-form";
@@ -30,6 +30,12 @@ const page = () => {
       func();
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      router.push("/");
+    }
+  }, []);
   return (
     <div className=" w-full h-screen flex justify-center items-center">
       <form

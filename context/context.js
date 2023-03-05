@@ -12,18 +12,6 @@ const ContextFunc = (props) => {
   const route = useRouter();
 
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      route.push("/authenticate");
-    } else {
-      const func = async () => {
-        const data = await allchatusers();
-        setChats(data.data.allchatdetails);
-      };
-      func();
-    }
-  }, []);
-
-  useEffect(() => {
     const func = async () => {
       const data = await fetchuser();
       setMainuser(data);

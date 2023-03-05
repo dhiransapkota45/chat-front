@@ -20,15 +20,6 @@ const MessageBox = ({ socket }) => {
         setChatboxdata("")
     }
 
-    // useEffect(() => {
-    //     console.log("it has run");
-
-    // }, [faskestate])
-
-    // socket && socket.on("random", (data) => {
-    //     console.log(data);
-    // })
-
     socket && socket.on("message received", (newMessage) => {
         console.log(newMessage);
         if (activechat === newMessage.chat._id) {
@@ -42,7 +33,6 @@ const MessageBox = ({ socket }) => {
     useEffect(() => {
         const func = async () => {
             const response = await api.get(`/api/createmessage/${activechat}`)
-            // console.log(response);
             setAllchatdata(response.data.allmessagesOfChat)
         }
         func()
