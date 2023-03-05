@@ -1,26 +1,23 @@
 import Image from 'components/common/Image'
+import Message from 'components/common/Message'
 import { contexter } from 'context/context'
 import React, { useContext, useEffect, useState } from 'react'
 import api from 'services/instance'
 import { createMessage } from 'services/messages/createMessage'
+import { BsFillSendFill } from "react-icons/bs"
 
 const MessageBox = ({ socket }) => {
     const { activechat, mainuser, chats, selectedChat } = useContext(contexter)
-    // console.log(selectedChat)
-    const [allchatdata, setAllchatdata] = useState([])
 
-    const [faskestate, setFakestate] = useState(false)
+    const [allchatdata, setAllchatdata] = useState([])
 
     const [chatboxdata, setChatboxdata] = useState("")
 
     const onsendHandler = async (e) => {
         e.preventDefault()
-
         const response = await createMessage(activechat, chatboxdata)
-        // console.log(response.data.createdmessage);
-
         socket.emit("new message", response.data.createdmessage)
-        setFakestate(!faskestate)
+        setChatboxdata("")
     }
 
     // useEffect(() => {
@@ -35,13 +32,11 @@ const MessageBox = ({ socket }) => {
     socket && socket.on("message received", (newMessage) => {
         console.log(newMessage);
         if (activechat === newMessage.chat._id) {
-            console.log("hurray");
-            setAllchatdata([...allchatdata, newMessage])
+            setAllchatdata([newMessage, ...allchatdata])
         } else {
             //do something here
         }
     })
-
 
 
     useEffect(() => {
@@ -54,19 +49,24 @@ const MessageBox = ({ socket }) => {
     }, [activechat])
     return (
         activechat &&
-        <div className=' py-9 px-6 flex flex-col-reverse justify-start h-screen'>
-            <form onSubmit={onsendHandler} className='flex'>
-                <input value={chatboxdata} onChange={(e) => setChatboxdata(e.target.value)} name='chatbox' className=' grow p-2  rounded-lg' type="text" placeholder='enter your message' />
-                <button type='submit'>send</button>
-            </form>
+        <div className=' flex flex-col h-full justify-start '>
 
-            <div className=''>
+            <div className=' p-4 flex items-center gap-3 text-white font-shantell font-medium border-gray-700 border-b-2 '>
+                <div>
+                    <img src={selectedChat.image} className="w-12 h-12 rounded-full object-cover" alt="" />
+                </div>
+                <div className=' text-xl capitalize'>{selectedChat.username}</div>
+            </div>
+
+            <div className=' flex-grow flex flex-col-reverse h-96 overflow-y-auto no-scrollbar px-6 '>
                 {
                     allchatdata.map((data, index) => {
                         return (
-                            <div key={index} className={` my-3 flex items-center gap-3 text-white font-semibold ${mainuser._id === data.sender._id ? "justify-end" : "justify-start"} `}>
-                                <div>{data.content}</div>
-                                <div><img className=' w-8 h-8 rounded-full' src={data.sender.image} alt="" /></div>
+                            <div key={data._id} className={` my-3 flex items-center gap-3 text-white font-semibold ${mainuser._id === data.sender._id ? "justify-end" : "justify-start"} `}>
+                                <div className={`${mainuser._id === data.sender._id ? "hidden" : ""}`}><img className=' w-8 h-8 rounded-full' src={data.sender.image} alt="" /></div>
+                                <div>
+                                    <Message text={data.content} />
+                                </div>
                             </div>
                         )
                     })
@@ -74,24 +74,12 @@ const MessageBox = ({ socket }) => {
             </div>
 
 
-            <div className=' '>
-                {
-                    mainuser ?
-                        <>
-                            {/* <Image image={mainuser.image} /> */}
-                            <div>
-                                <img src={selectedChat.image} className="w-8 h-8 rounded-full" alt="" />
-                            </div>
-                            <div>{selectedChat.username}</div>
-                        </>
-                        :
-                        <div>
-                            loading...
-                        </div>
-                }
-                {/* <div className='hidden'>hello</div> */}
 
-            </div>
+            <form onSubmit={onsendHandler} className='flex px-8 py-4'>
+                <input value={chatboxdata} onChange={(e) => setChatboxdata(e.target.value)} name='chatbox' className=' grow p-2 outline-none bg-gray-600 pl-6 text-white  rounded-3xl' type="text" placeholder='enter your message' />
+                <button className=' text-white p-2
+                ' type='submit'><BsFillSendFill /></button>
+            </form>
         </div>
     )
 }
