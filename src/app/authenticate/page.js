@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { cloudinaryupload } from "utils/cloudinary";
 
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const page = () => {
   const [loginorsignup, setLoginorsignup] = useState("login");
@@ -31,8 +32,10 @@ const page = () => {
     }
   };
 
+  // localStorage.getItem("accessToken")
+
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
+    if (Cookies.get("accessToken")) {
       router.push("/");
     }
   }, []);

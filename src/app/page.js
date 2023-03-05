@@ -9,12 +9,14 @@ import { useRouter } from "next/navigation";
 import Main from "../../components/home/Main";
 import { allchatusers } from "services/users/allchatusers";
 import { contexter } from "context/context";
+import Cookies from "js-cookie";
 
 export default function Home() {
   const route = useRouter();
   const { setChats } = useContext(contexter);
+  // !localStorage.getItem("accessToken")
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
+    if (!Cookies.get("accessToken")) {
       route.push("/authenticate");
     } else {
       const func = async () => {

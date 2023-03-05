@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendurl = "http://localhost:8000";
+const backendurl = "https://chat-back-production-53b7.up.railway.app";
 
 export const signup = async (data, imageurl, router) => {
   try {
@@ -10,7 +10,8 @@ export const signup = async (data, imageurl, router) => {
     });
 
     console.log(response);
-    localStorage.setItem("accessToken", response.data.accessToken);
+    // localStorage.setItem("accessToken", response.data.accessToken);
+    Cookies.set("accessToken", response.data.accessToken);
     router.push("/");
   } catch (error) {
     console.log(error);

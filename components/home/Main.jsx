@@ -7,6 +7,8 @@ import { io } from 'socket.io-client'
 
 import { useRouter } from 'next/navigation'
 
+import Cookies from 'js-cookie'
+
 const baseurl = "https://chat-back-production-53b7.up.railway.app/"
 let socket;
 const Main = () => {
@@ -16,7 +18,8 @@ const Main = () => {
   const route = useRouter()
 
   const logoutHandler = () => {
-    localStorage.removeItem("accessToken")
+    // localStorage.removeItem("accessToken")
+    Cookies.remove("accessToken")
     route.push("/authenticate")
   }
   useEffect(() => {
