@@ -88,7 +88,7 @@ const page = () => {
           <input
             {...register("password", { required: true })}
             name="password"
-            type="text"
+            type="password"
             placeholder="password"
             className=" outline-none border w-full p-2 rounded-lg focus:border-blue-600"
           />
