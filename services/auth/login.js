@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { errorToast } from "utils/errorToast";
 
 const backendurl = "https://chat-back-production-53b7.up.railway.app";
 export const login = async (data, setLoading) => {
@@ -12,6 +13,7 @@ export const login = async (data, setLoading) => {
     setLoading(false);
   } catch (error) {
     setLoading(false);
-    console.log("hello there", error);
+    console.log("hello there", error.response.data.msg);
+    errorToast(error.response.data.msg ? error.response.data.msg : "error");
   }
 };

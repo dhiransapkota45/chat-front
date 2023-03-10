@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { errorToast } from "utils/errorToast";
 
 const backendurl = "https://chat-back-production-53b7.up.railway.app";
 
@@ -11,7 +12,6 @@ export const signup = async (data, imageurl, setLoading) => {
     });
 
     console.log(response);
-    // localStorage.setItem("accessToken", response.data.accessToken);
     Cookies.set("accessToken", response.data.accessToken);
     // router.push("/");
     window.location.reload();
@@ -19,6 +19,6 @@ export const signup = async (data, imageurl, setLoading) => {
     console.log("it should never run");
   } catch (error) {
     setLoading(false);
-    console.log(error);
+    errorToast(error.response.data.msg ? error.response.data.msg : "error");
   }
 };
