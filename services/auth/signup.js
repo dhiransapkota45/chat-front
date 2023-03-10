@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const backendurl = "https://chat-back-production-53b7.up.railway.app";
 
-export const signup = async (data, imageurl, router) => {
+export const signup = async (data, imageurl, setLoading) => {
   try {
     const response = await axios.post(`${backendurl}/api/signup`, {
       ...data,
@@ -15,7 +15,10 @@ export const signup = async (data, imageurl, router) => {
     Cookies.set("accessToken", response.data.accessToken);
     // router.push("/");
     window.location.reload();
+    setLoading(false);
+    console.log("it should never run");
   } catch (error) {
+    setLoading(false);
     console.log(error);
   }
 };

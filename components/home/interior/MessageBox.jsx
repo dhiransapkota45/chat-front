@@ -50,16 +50,19 @@ const MessageBox = ({ socket }) => {
 
             <div className=' flex-grow flex flex-col-reverse h-96 overflow-y-auto no-scrollbar px-6 '>
                 {
-                    allchatdata.map((data, index) => {
-                        return (
-                            <div key={data._id} className={` my-3 flex items-center gap-3 text-white font-semibold ${mainuser._id === data.sender._id ? "justify-end" : "justify-start"} `}>
-                                <div className={`${mainuser._id === data.sender._id ? "hidden" : ""}`}><img className=' w-8 h-8 rounded-full' src={data.sender.image} alt="" /></div>
-                                <div>
-                                    <Message text={data.content} />
+                    allchatdata.length > 0 ?
+                        allchatdata.map((data, index) => {
+                            return (
+                                <div key={data._id} className={` my-3 flex items-center gap-3 text-white font-semibold ${mainuser._id === data.sender._id ? "justify-end" : "justify-start"} `}>
+                                    <div className={`${mainuser._id === data.sender._id ? "hidden" : ""}`}><img className=' w-8 h-8 rounded-full' src={data.sender.image} alt="" /></div>
+                                    <div>
+                                        <Message text={data.content} />
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    })
+                            )
+                        })
+                        :
+                        <div className='text-white h-full flex items-center justify-center font-semibold text-2xl'>Start Chatting</div>
                 }
             </div>
 

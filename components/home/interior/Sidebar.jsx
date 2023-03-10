@@ -68,24 +68,28 @@ const Sidebar = ({ socket }) => {
 
 
             <div>
-                {chats.map((chat, index) => {
-                    return (
-                        <div key={index}>
-                            {
-                                chat.users.map((user, index) => {
-                                    if (user._id !== mainuser._id) {
-                                        return (
-                                            <button key={index} type='button' onClick={() => chatClickHandler(chat._id, user)} className={`${activechat === chat._id ? "bg-blue-600" : "bg-gray-600"}  hover:cursor-pointer text-white p-2 rounded-md flex w-full my-4 gap-2 items-center`}>
-                                                <img src={user.image} alt="profile" className=' w-12 object-cover h-12 rounded-full' />
-                                                <p className=' capitalize '>{user.username}</p>
-                                            </button>
-                                        )
-                                    }
-                                })
-                            }
-                        </div>
-                    )
-                })}
+                {chats.length !== 0 ?
+                    chats.map((chat, index) => {
+                        return (
+                            <div key={index}>
+                                {
+                                    chat.users.map((user, index) => {
+                                        if (user._id !== mainuser._id) {
+                                            return (
+                                                <button key={index} type='button' onClick={() => chatClickHandler(chat._id, user)} className={`${activechat === chat._id ? "bg-blue-600" : "bg-gray-600"}  hover:cursor-pointer text-white p-2 rounded-md flex w-full my-4 gap-2 items-center`}>
+                                                    <img src={user.image} alt="profile" className=' w-12 object-cover h-12 rounded-full' />
+                                                    <p className=' capitalize '>{user.username}</p>
+                                                </button>
+                                            )
+                                        }
+                                    })
+                                }
+                            </div>
+                        )
+                    })
+                    :
+                    <div className=' text-white text-center font-bold'>Search user to start chatting</div>
+                }
             </div>
         </div>
     )

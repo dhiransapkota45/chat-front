@@ -12,6 +12,8 @@ const page = () => {
   const [loginorsignup, setLoginorsignup] = useState("login");
   const [profile, setProfile] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   const {
@@ -22,11 +24,13 @@ const page = () => {
 
   const submitHandler = (data) => {
     if (loginorsignup === "login") {
-      login(data, router);
+      setLoading(true);
+      login(data, setLoading);
     } else if (loginorsignup === "signup") {
+      setLoading(true);
       const func = async () => {
         const imageurl = await cloudinaryupload(profile);
-        signup(data, imageurl, router);
+        signup(data, imageurl, setLoading);
       };
       func();
     }
@@ -111,9 +115,17 @@ const page = () => {
 
         <button
           type="submit"
-          className=" w-full bg-blue-600 p-2 text-white font-bold rounded-2xl"
+          className={`w-full ${
+            loading ? "bg-blue-500" : "bg-blue-600"
+          } p-2 text-white font-bold rounded-2xl`}
         >
-          Submit
+          {loading ? (
+            <div className="w-full flex justify-center">
+              <div className="spinner  "></div>
+            </div>
+          ) : (
+            <span>Submit</span>
+          )}
         </button>
       </form>
     </div>
